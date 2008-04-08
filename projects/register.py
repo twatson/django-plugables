@@ -1,2 +1,2 @@
 # Administration
-from scr import admin
+from projects import admin

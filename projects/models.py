@@ -1,34 +1,12 @@
 from django.db import models
+from django.db.models import permalink
+from django.utils import text
 
 from core.models import Item
 from tagging.fields import TagField
 
 
-class Project(models.Model):
-    """
-    A project is a wrapper around a code repository, connecting authors and
-    other descriptive information to it.
-    """
-    
-    name = models.CharField(max_length=100)
-    description = models.TextField(help_text='A short description of the project.')
-    repository = models.ForeignKey('CodeRepository', related_name='repository')
-    maintainers = models.ManyToManyField('Maintainer', related_name='maintainer')
-    slug = models.SlugField(unique=True)
-    url = models.URLField(verify_exists=True, help_text='The URL to the project, usually hosted at Google Code.')
-    tags = TagField()
-    
-    def __unicode__(self):
-        return self.name
-    
-    @permalink
-    def get_absolute_url(self):
-        return ('project-detail', (), {
-            'slug': self.slug
-        })
-    
-
-class Maintainer(models.Model):
+class Developer(models.Model):
     """
     A maintainer is a person with commmit rights to a given code repository.
     All this model contains is simple metadata, if available.
@@ -39,22 +17,23 @@ class Maintainer(models.Model):
     middle_name = models.CharField(max_length=200, blank=True)
     last_name = models.CharField(max_length=200)
     suffix = models.CharField(max_length=100, blank=True)
-    bio = models.TextField(blank=True)
+    svn_name = models.CharField('SVN name', max_length=100)
     slug = models.SlugField(unique=True)
     
     # URLs
-    personal_url = models.URLField(blank=True, verify_exists=True)
-    professional_url = models.URLField(blank=True, verify_exists=True)
+    personal_url = models.URLField('personal URL', blank=True, verify_exists=True)
+    professional_url = models.URLField('professional URL', blank=True, verify_exists=True)
+    django_people_url = models.URLField('Django People Profile', blank=True, verify_exists=True)
     
     class Meta:
         ordering = ('last_name', 'first_name')
     
     def __unicode__(self):
-        return self.name
+        return '%s (%s)' % (self.name, self.svn_name)
         
     @permalink
     def get_absolute_url(self):
-        return ('maintainer-detail', (), {
+        return ('developer-detail', (), {
             'slug': self.slug
         })
     
@@ -67,16 +46,37 @@ class Maintainer(models.Model):
     def full_name(self):
         return ' '.join(b for b in (self.first_name, self.middle_name, self.last_name, self.suffix) if b)
     
-    def get_projects(self):
-        """
-        Returns a string of projects for use in the admin list display.
-        """
+
+class Project(models.Model):
+    """
+    A project is a wrapper around a code repository, connecting authors and
+    other descriptive information to it.
+    """
+    
+    name = models.CharField(max_length=100)
+    tagline = models.CharField(max_length=250, help_text="A few words about the project.")
+    description = models.TextField(blank=True, help_text='A short description of the project.')
+    owners = models.ManyToManyField(Developer, related_name='owners', blank=True, null=True)
+    members = models.ManyToManyField(Developer, related_name='members', blank=True, null=True)
+    slug = models.SlugField(unique=True)
+    url = models.URLField('project URL', verify_exists=True, help_text='The URL to the project, usually hosted at Google Code.')
+    tags = TagField()
+    active = models.BooleanField(default=True)
+    
+    class Meta:
+        ordering = ['name']
+    
+    def __unicode__(self):
+        return self.name
+    
+    @permalink
+    def get_absolute_url(self):
+        return ('project-detail', (), {
+            'slug': self.slug
+        })
         
-        maintainers = Project.objects.filter(maintainers=self)
-        projects = []
-        for maintainer in maintainers:
-            projects.append(str(project.name))
-        return ', '.join(projects)
+    def latest_update(self):
+        return ''
     
 
 class CodeRepository(models.Model):
@@ -89,27 +89,19 @@ class CodeRepository(models.Model):
         ('svn', 'Subversion'),
     )
     
+    project = models.ForeignKey(Project, related_name='repository')
     type = models.CharField(max_length=3, choices=SCM_CHOICES, default='svn')
-    name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True)
-    username = models.CharField(max_length=100, help_text='The maintainer\'s username for this SCR.')
     public_changeset_template = models.URLField(verify_exists=False, blank=True, help_text='Template for viewing a changeset publically. Use \'%s\' for the revision number')
-    url = models.URLField(verify_exists=True)
+    url = models.URLField('repository URL', verify_exists=True)
     
     class Meta:
         verbose_name_plural = 'code repositories'
     
     def __unicode__(self):
-        return self.name
-    
-    @permalink
-    def get_absolute_url(self):
-        return ('repository-detail', (), {
-            'slug': self.slug
-        })
+        return self.project.name
     
     def updated(self):
-        commits = CodeCommit.objects.filter('-committed')[:0]
+        commits = CodeCommit.objects.filter(repository=self.id)[0]
         last_commit = commits.committed
         return last_commit
     
@@ -129,12 +121,12 @@ class CodeCommit(models.Model):
     
     def __unicode__(self):
         return "[%s] %s" % (self.revision, text.truncate_words(self.message, 10))
-        
+    
     @property
     def url(self):
         if self.repository.public_changeset_template:
             return self.repository.public_changeset_template % self.revision
-        return ""
+        return ''
     
 
 # Initilization

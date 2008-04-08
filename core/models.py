@@ -13,7 +13,7 @@ class Item(models.Model):
     
     # Generic relation to the object.
     content_type = models.ForeignKey(ContentType)
-    object_id = models.TextField()
+    object_id = models.IntegerField()
     object = GenericForeignKey()
     
     # "Standard" metadata each object provides.
