@@ -117,7 +117,8 @@ class CodeCommit(models.Model):
     committed = models.DateTimeField()
     
     class Meta:
-        ordering = ['-revision']
+        ordering = ['-committed']
+        get_latest_by = 'committed'
     
     def __unicode__(self):
         return "[%s] %s" % (self.revision, text.truncate_words(self.message, 10))

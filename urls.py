@@ -4,42 +4,39 @@ from django.views.generic import list_detail
 from django.views.generic.simple import direct_to_template, redirect_to
 from django.contrib import admin
 
-from projects.models import Project, CodeRepository, Developer
+from projects.models import Project, CodeRepository, CodeCommit, Developer
 
 
 # Querysets
 project_list = {
     'queryset': Project.objects.select_related(),
     'template_object_name': 'project',
-    'extra_context': {
-        'owners': Developer.objects.filter()
-    }
 }
 
 project_detail = {
     'queryset': Project.objects.select_related(),
     'template_object_name': 'project',
-    
 }
 
 developer_list = {
     'queryset': Developer.objects.all(),
     'template_object_name': 'developer',
-    'extra_context': {
-        'count': Developer.objects.count,
-    }
 }
 
 developer_detail = {
     'queryset': Developer.objects.all(),
     'template_object_name': 'developer',
-
 }
 
 repository_list = {
     'queryset': CodeRepository.objects.all(),
-    'template_object_name': 'repository',
-    
+    'template_object_name': 'repository',   
+}
+
+commit_list = {
+    'queryset': CodeCommit.objects.all(),
+    'template_object_name': 'commit',
+    'paginate_by': 50,
 }
 
 
@@ -79,6 +76,12 @@ urlpatterns = patterns('',
         view    = list_detail.object_list,
         kwargs  = repository_list,
         name    = 'repository-list',
+    ),
+    url(
+        regex   = '^commits/$',
+        view    = list_detail.object_list,
+        kwargs  = commit_list,
+        name    = 'commit-list',
     ),
     
     # Homepage

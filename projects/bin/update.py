@@ -2,13 +2,13 @@
 
 # Setup the paths.
 import sys, os
-sys.path.append('/home/bryan/Projects/djangoplugables.com/trunk/applications')
-sys.path.append('/home/bryan/Projects/djangoplugables.com/trunk/applications/core')
-sys.path.append('/home/bryan/Projects/djangoplugables.com/trunk/applications/projects')
+sys.path.append('/home/plugables/applications')
+sys.path.append('/home/plugables/applications/core')
+sys.path.append('/home/plugables/applications/projects')
 
 # Setup the enviornment.
 from django.core.management import setup_environ
-from applications import settings
+import settings
 
 setup_environ(settings)
 
