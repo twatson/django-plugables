@@ -75,7 +75,7 @@ class Project(models.Model):
             'slug': self.slug
         })
         
-    def latest_update(self):
+    def updated(self):
         return ''
     
 
