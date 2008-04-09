@@ -92,6 +92,9 @@ urlpatterns = patterns('',
         name    = 'site-home',
     ),
     
+    # Contact Form / About
+    (r'^about/', include('contact_form.urls')),
+    
     # Administration
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     ('^admin/(.*)', admin.site.root),
