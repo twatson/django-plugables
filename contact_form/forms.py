@@ -152,7 +152,19 @@ class ContactForm(forms.Form):
     
     recipient_list = [mail_tuple[1] for mail_tuple in settings.MANAGERS]
     
-    subject = "[%s] Message sent through the web site" % Site.objects.get_current().name
+    subject_template_name = 'contact_form/contact_form_subject.txt'
+    
+    def subject(self):
+        """
+        Renders the subject of the message to a string.
+        """
+        if callable(self.subject_template_name):
+            template_name = self.subject_template_name()
+        else:
+            template_name = self.subject_template_name
+        t = loader.get_template(template_name)
+        # subject must not contain newlines
+        return ' '.join(t.render(RequestContext(self.request, self.cleaned_data)).splitlines())
     
     template_name = 'contact_form/contact_form.txt'
     
