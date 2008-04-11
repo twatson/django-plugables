@@ -1,7 +1,10 @@
+from datetime import datetime
+
 from django.db import models
 from django.db.models import permalink
 from django.utils import text
 
+import search
 from core.models import Item
 from tagging.fields import TagField
 
@@ -56,6 +59,7 @@ class Project(models.Model):
     name = models.CharField(max_length=100)
     tagline = models.CharField(max_length=250, help_text="A few words about the project.")
     description = models.TextField(blank=True, help_text='A short description of the project.')
+    created = models.DateTimeField(default=datetime.now)
     owners = models.ManyToManyField(Developer, related_name='owners', blank=True, null=True)
     members = models.ManyToManyField(Developer, related_name='members', blank=True, null=True)
     slug = models.SlugField(unique=True)
@@ -74,9 +78,6 @@ class Project(models.Model):
         return ('project-detail', (), {
             'slug': self.slug
         })
-        
-    def updated(self):
-        return ''
     
 
 class CodeRepository(models.Model):
@@ -87,6 +88,9 @@ class CodeRepository(models.Model):
     
     SCM_CHOICES = (
         ('svn', 'Subversion'),
+        ('git', 'Git'),
+        ('mer', 'Mercurial'),
+        ('baz', 'Bazar'),
     )
     
     project = models.ForeignKey(Project, related_name='repository')
@@ -133,6 +137,9 @@ class CodeCommit(models.Model):
 # Initilization
 from projects import register
 del register
+
+# Search Registration
+search.register(Project, fields=['name', 'tagline', 'description'])
 
 # Register item objects to be "followed"
 Item.objects.follow_model(CodeCommit)
