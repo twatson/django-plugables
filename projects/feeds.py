@@ -37,6 +37,27 @@ class LatestCommits(Feed):
     item_author_email = ''
     
 
+class LatestProjects(Feed):
+    """
+    A feed of recently added projects.
+    """
+    
+    title = '%s: recent projects' % site.name
+    link = 'http://%s/projects/' % site.domain
+    
+    def description(self):
+        return 'The latest projects to be added to %s' % site.name
+    
+    def items(self):
+        return Project.objects.order_by('-created')[:25]
+    
+    def item_pubdate(self, item):
+        return item.created
+    
+    def item_link(self, item):
+        return item.get_absolute_url()
+    
+
 # class LatestCommitsByProject(Feed):
 #     def get_object(self, bits):
 #         if len(bits) != 1:

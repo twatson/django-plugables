@@ -15,13 +15,13 @@ class RepositoryInline(admin.TabularInline):
 
 class ProjectAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('Basics', {'fields': ('name', 'tagline', 'slug', 'added')}),
+        ('Basics', {'fields': ('name', 'tagline', 'slug')}),
         ('Specifics', {'fields': ('active', 'url', 'description', 'tags')}),
         ('People', {'fields': ('owners', 'members')}),
     )
     inlines = [RepositoryInline]
     filter_horizontal = ('owners', 'members')
-    list_display = ('id', 'name', 'url', 'active')
+    list_display = ('name', 'url', 'active', 'created')
     search_fields = ('name', 'description')
     prepopulated_fields = { 'slug': ('name',) }
     

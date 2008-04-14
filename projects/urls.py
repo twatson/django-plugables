@@ -5,11 +5,11 @@ from django.views.generic.simple import direct_to_template, redirect_to
 from django.contrib.syndication.views import feed
 
 from models import Project, CodeRepository, CodeCommit, Developer
-from feeds import LatestCommits#, LatestCommitsByProject
+from feeds import LatestProjects, LatestCommits#, LatestCommitsByProject
 
 # Feeds
 feeds = {
-    #'recent-projects': LatestProjects,
+    'projects': LatestProjects,
     'commits': LatestCommits,
 }
 
