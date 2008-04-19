@@ -4,7 +4,7 @@ from django.db import models
 from django.db.models import permalink
 from django.utils import text
 
-from core.models import Item
+#from core.models import Item
 from tagging.fields import TagField
 
 
@@ -32,7 +32,7 @@ class Developer(models.Model):
     
     def __unicode__(self):
         return '%s (%s)' % (self.name, self.svn_name)
-        
+    
     @permalink
     def get_absolute_url(self):
         return ('developer-detail', (), {
@@ -49,6 +49,17 @@ class Developer(models.Model):
         return ' '.join(b for b in (self.first_name, self.middle_name, self.last_name, self.suffix) if b)
     
 
+class Committer(models.Model):
+    """
+    A class that creates a simple relationship between a person who commits
+    code into a repository listed in the directory and a developer in the
+    directory.
+    """
+    
+    developer = models.ForeignKey(Developer, unique=True)
+    committer_name = models.CharField(max_length=50)
+    
+
 class Project(models.Model):
     """
     A project is a wrapper around a code repository, connecting authors and
@@ -63,6 +74,7 @@ class Project(models.Model):
     members = models.ManyToManyField(Developer, related_name='members', blank=True, null=True)
     slug = models.SlugField(unique=True)
     url = models.URLField('project URL', verify_exists=True, help_text='The URL to the project, usually hosted at Google Code.')
+    extra_urls = models.TextField('additional URLs')
     tags = TagField()
     active = models.BooleanField(default=True)
     
@@ -86,7 +98,7 @@ class Project(models.Model):
         super(Project, self).save()
     
 
-class CodeRepository(models.Model):
+class Repository(models.Model):
     """
     A code repository that you check code into somewhere. Currently only SVN
     is supported, but other forms should be hard to support.
@@ -111,17 +123,18 @@ class CodeRepository(models.Model):
         return self.project.name
     
     def updated(self):
-        commits = CodeCommit.objects.filter(repository=self.id)[0]
+        commits = Changeset.objects.filter(repository=self.id)[0]
         last_commit = commits.committed
         return last_commit
     
 
-class CodeCommit(models.Model):
+class Changeset(models.Model):
     """
     A code change that's been checked in.
     """
     
-    repository = models.ForeignKey(CodeRepository, related_name='commits')
+    repository = models.ForeignKey(Repository, related_name='commits')
+    committer = models.ForeignKey(Committer, related_name='committer')
     revision = models.PositiveSmallIntegerField()
     message = models.TextField()
     committed = models.DateTimeField()
@@ -137,7 +150,30 @@ class CodeCommit(models.Model):
     def url(self):
         if self.repository.public_changeset_template:
             return self.repository.public_changeset_template % self.revision
-        return ''
+        else:
+            return ''
+    
+
+class Change(models.Model):
+    """
+    A ``Change`` is a subset of a ``Changeset`` that displays more information
+    about the instance including files that were added, deleted or modified as
+    well as the changes within files that were modified.
+    """
+    
+    ADD = 1
+    MODIFY = 2
+    DELETE = 3
+    TYPE_CHOICES = (
+        (ADD, 'Add'),
+        (MODIFY, 'Modify'),
+        (DELETE, 'Delete'),
+    )
+    
+    changeset = models.ForeignKey(Changeset, related_name='change')
+    type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
+    path = models.TextField()
+    diff = models.TextField()
     
 
 # Initilization
@@ -145,4 +181,4 @@ from projects import register
 del register
 
 # Register item objects to be "followed"
-Item.objects.follow_model(CodeCommit)
+#Item.objects.follow_model(Changeset)

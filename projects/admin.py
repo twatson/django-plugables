@@ -1,15 +1,15 @@
 from django.contrib import admin
 
-from models import Project, Developer, CodeRepository, CodeCommit
+from models import Project, Developer, Repository, Changeset
 
 
 class CommitsInline(admin.TabularInline):
-    model = CodeCommit
+    model = Changeset
     extra = 3
     
 
 class RepositoryInline(admin.TabularInline):
-    model = CodeRepository
+    model = Repository
     extra = 1
     
 
@@ -36,7 +36,7 @@ class DeveloperAdmin(admin.ModelAdmin):
     prepopulated_fields = { 'slug': ('first_name', 'middle_name', 'last_name', 'suffix') }
     
 
-class CodeRepositoryAdmin(admin.ModelAdmin):
+class RepositoryAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Linkage', {'fields': ('project',)}),
         ('Basics', {'fields': ('type', 'url')}),
@@ -47,7 +47,7 @@ class CodeRepositoryAdmin(admin.ModelAdmin):
     search_fields = ('',)
     
 
-class CodeCommitAdmin(admin.ModelAdmin):
+class ChangesetAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Linkage', {'fields': ('repository',)}),
         ('Basics', {'fields': ('revision', 'message', 'committed')}),
@@ -59,5 +59,5 @@ class CodeCommitAdmin(admin.ModelAdmin):
 
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Developer, DeveloperAdmin)
-admin.site.register(CodeRepository, CodeRepositoryAdmin)
-admin.site.register(CodeCommit, CodeCommitAdmin)
+admin.site.register(Repository, RepositoryAdmin)
+admin.site.register(Changeset, ChangesetAdmin)

@@ -4,7 +4,7 @@ from django.views.generic import list_detail
 from django.views.generic.simple import direct_to_template, redirect_to
 from django.contrib.syndication.views import feed
 
-from models import Project, CodeRepository, CodeCommit, Developer
+from models import Project, Repository, Changeset, Developer
 from feeds import LatestProjects, LatestCommits#, LatestCommitsByProject
 
 # Feeds
@@ -36,12 +36,12 @@ developer_detail = {
 }
 
 repository_list = {
-    'queryset': CodeRepository.objects.all(),
+    'queryset': Repository.objects.all(),
     'template_object_name': 'repository',   
 }
 
 commit_list = {
-    'queryset': CodeCommit.objects.all(),
+    'queryset': Changeset.objects.all(),
     'template_object_name': 'commit',
     'paginate_by': 50,
 }
