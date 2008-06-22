@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} &bull; List of Developers{% endblock %}
+{% block body-class %}developers{% endblock %}
+{% block developers-selected %} selected{% endblock %}
+{% block masthead %}
+<div class="grid_16">
+    <h2>The Sexy Developer List</h2>
+</div>
+{% endblock %}
+{% block content %}
+<div id="main" class="grid_10">
+    <h3>Send your thank you cards to...</h3>
+    <ul class="grid_9">
+    {% for developer in developer_list %}
+    {% if developer.owners.all or developer.members.all %}
+    <li>
+        <a href="{{ developer.get_absolute_url }}">{{ developer.name }}</a>
+        {% if developer.owners.all %}<div><span>Owns</span> {% for project in developer.owners.all %}<a href="{{ project.get_absolute_url }}">{{ project.name }}</a>{% ifequal forloop.revcounter 2 %} and {% else %}{% if not forloop.last %}, {% endif %}{% endifequal %}{% endfor %}</div>{% endif %}
+        {% if developer.members.all %}<div><span>Is a member of</span> {% for project in developer.members.all %}<a href="{{ project.get_absolute_url }}">{{ project.name }}</a>{% ifequal forloop.revcounter 2 %} and {% else %}{% if not forloop.last %}, {% endif %}{% endifequal %}{% endfor %}</div>{% endif %}
+    </li>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
+{% block sidebar %}
+<div id="sidebar" class="grid_5">
+    <h3>We list {{ developer_list|length }} developers.</h3>
+    <p>These are the special people that help your Django projects scream during the day and sleep soundly at night. They're the minds that make your life easier by providing code that is (hopefully) clean, well documented and concise.</p>
+    <p>However, we might not have every author credited. This could be due to the fact that we missed your name during our searches (since we do this stuff manually) or we couldn't find any information about you. In either case, if you'd like to submit some information, <a href="{% url contact_form %}">please feel free to do so</a>!
+</div>
+{% endblock %}

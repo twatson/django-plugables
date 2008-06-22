@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} &bull; {{ project.name }}{% endblock %}
+{% block body-class %}projects{% endblock %}
+{% block projects-selected %} selected{% endblock %}
+{% block masthead %}
+<div class="grid_16">
+    <h2>{{ project.name }} <small>{{ project.tagline }}</small></h2>
+</div>
+{% endblock %}
+{% block content %}
+<div id="main" class="grid_10">
+    {% if project.description %}
+    <h3>The Basics</h3>
+    <div id="basics" class="grid_9 alpha">
+        {{ project.description|markdown|typogrify|urlize }}
+        
+        <strong>Project Home</strong> &ndash; <a href="{{ project.url }}">{{ project.url }}</a><br />
+        <strong>Grab the Repository</strong> &ndash; {% for repository in project.repository.all %}svn checkout {{ repository.url }}{% endfor %}
+    </div>
+    {% endif %}
+    <span class="clear">HOLY SHIT! IT'S EXTRA UNNECESSARY CLEARING MARKUP!</span>
+    <h3>Recent Commits</h3>
+    {% for repository in project.repository.all %}
+    {% ifequal repository.type "svn" %}
+        <ul class="grid_9 alpha">
+        {% for commit in repository.commits.all|slice:":10" %}
+            <li>
+                {% if commit.url %}<a href="{{ commit.url }}" class="revision">{{ commit.revision }}</a>{% else %}<span class="revision">{{ commit.revision }}</span>{% endif %} was committed <strong>{{ commit.committed|timesince }} ago.</strong>
+                <div>{% if commit.message %}{{ commit.message|urlize|typogrify }}{% else %}No commit message supplied.{% endif %}</div>
+            </li>    
+        {% endfor %}
+        </ul>
+    {% else %}
+    <p>Ack. We don't support showing the commits for this project's repository type ({{ repository.type }}).</p>
+    {% endifequal %}
+    {% endfor %}
+</div>
+{% endblock %}
+{% block sidebar %}
+<div id="sidebar" class="grid_5">    
+    {% if project.owners.all %}
+    <h3>Project Owner{{ project.owners.all|pluralize }}</h3>
+    <ul>
+    {% for owner in project.owners.all %}
+        <li>
+            <h4>{{ owner.full_name }}</h4>
+            <a class="per" href="{{ owner.personal_url }}">{{ owner.personal_url }}</a>
+            <a class="pro" href="{{ owner.professional_url }}">{{ owner.professional_url }}</a>
+            <a class="djp" href="{{ owner.django_people_url }}">{{ owner.django_people_url }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p>We don't seem to know the people who created this project. If you or somebody you know owns this and you'd like to have your name added, please let us know!</p>
+    {% endif %}
+    
+    {% if project.members.all %}
+    <h3>Project Member{{ project.members.all|pluralize }}</h3>
+    <ul>
+    {% for member in project.members.all %}
+        <li>
+            <h4>{{ member.full_name }}</h4>
+            <a class="per" href="{{ member.personal_url }}">{{ member.personal_url }}</a>
+            <a class="pro" href="{{ member.professional_url }}">{{ member.professional_url }}</a>
+            <a class="djp" href="{{ member.django_people_url }}">{{ member.django_people_url }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endblock %}

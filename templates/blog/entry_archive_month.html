@@ -1,0 +1,16 @@
+{% extends "base_blog.html" %}
+
+{% block title %}{{ block.super }} &bull; Entry Archive (by month){% endblock %}
+{% block content %}
+<div id="main" class="grid_10">
+    {% for entry in entry %}
+        {% include "blog/entry_list_item.html" %}
+    {% endfor %}
+</div>
+{% endblock %}
+{% block sidebar %}
+<div id="sidebar" class="grid_5">
+    <h3>Feeling Nosy?</h3>
+    <p>If you need to be in the know about what's going on here at the Django Plugables project, this is your first and last stop.</p>
+</div>
+{% endblock %}

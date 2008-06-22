@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} &bull; {{ developer.full_name }}{% endblock %}
+{% block body-class %}profile{% endblock %}
+{% block developers-selected %} selected{% endblock %}
+{% block masthead %}
+<div class="grid_16">
+    <h2>{{ developer.full_name }}</h2>
+</div>    
+{% endblock %}
+{% block content %}
+<div id="main" class="grid_10">
+    <h3>You can find {{ developer.first_name }} at...</h3>
+    <ul id="urls">
+        {% if developer.django_people_url %}<li><a href="{{ developer.django_people_url }}" class="djp">{{ developer.django_people_url }}</a></li>{% endif %}
+        {% if developer.personal_url %}<li><a href="{{ developer.personal_url }}" class="per">{{ developer.personal_url }}</a></li>{% endif %}
+        {% if developer.professional_url %}<li><a href="{{ developer.professional_url }}" class="pro">{{ developer.professional_url }}</a></li>{% endif %}
+    </ul>
+    
+    {% if developer.owners.all %}
+    <h3>{{ developer.first_name }} owns...</h3>
+    <ul class="grid_9">
+    {% for project in developer.owners.all %}
+        <li>
+            <h4><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></h4>
+            <div>{{ project.tagline }}</div>
+        </li>
+    {% endfor %}        
+    </ul>
+    {% endif %}
+    <span class="clear">HOLY SHIT! IT'S EXTRA UNNECESSARY CLEARING MARKUP!</span>
+    {% if developer.members.all %}    
+    <h3>{{ developer.first_name }} is a member of...</h3>
+    <ul class="grid_9">
+    {% for project in developer.members.all %}
+        <li>
+            <h4><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></h4>
+            <div>{{ project.tagline }}</div>
+        </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endblock %}
+{% block sidebar %}
+<div id="sidebar" class="grid_5">
+    <h3>Um... profile?</h3>
+    <p>We here at Pluggables, or maybe just I, like to give thanks to the developers that made our lives easier. However, we're not here to give you loads of information about them. We've kept the site simple, and we're not looking to go all... social-network-y.</p>
+    <p>With that, all you'll see are a personal link, professional link, and a link to their <a href="http://djangopeople.com">Django People</a> profile; if they're available of course.</p>
+</div>
+{% endblock %}

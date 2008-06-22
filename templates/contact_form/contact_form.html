@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} &bull; The Obligatory About Page{% endblock %}
+{% block body-class %}about{% endblock %}
+{% block masthead %}
+<div class="grid_16">
+    <h2>The Obligatory About Page</h2>
+</div>
+{% endblock %}
+{% block content %}
+<div id="main" class="grid_10">
+    <div class="grid_9 alpha">
+        <div class="paragraph">
+        <h3>The Backstory.</h3>
+            <p>You know when you get those ideas that are fueled by the hatred towards and incompetence of something else? Well, that's how this place was born. Django Plugables is simply a place that aims to bring all of the pluggable applications under one roof. There are so many gems and little-known projects in the world of the pluggable app and this site strives to make them as well known as the essentials. <strong>We want to make it easy for you to create.</strong></p>
+            <p>This site was created, with love, by the duo at <a href="http://revyver.com">Revyver</a>, <a href="http://avalonstar.com">Bryan</a> and <a href="http://sayonarane.net">Jen</a>. Bryan did the 80% of the work that made 20% of the difference. Jen did the 20% of the work that made 80% of the difference. :)</p>
+        </div>
+        
+        <div class="paragraph">
+            <h3>Colophon.</h3>
+            <p>This <a href="http://djangoproject.com">Django joint</a> is essentially a heavily modified and lovingly styled version of the SCM (source control management) element of <a href="/developers/jacob-kaplan-moss/">Jacob Kaplan-Moss'</a> <a href="/projects/jellyroll/"><code>jellyroll</code></a>. <a href="http://www.jacobian.org/coding/">Here's his original implementation</a>, where he uses it to keep track of his commits and wiki edits within the Django project.</p> 
+            <p>We also use <a href="/developers/james-bennett/">James Bennett's</a> <a href="/projects/django-contact-form"><code>django-contact-form</code></a> for the lovely set of boxes you see to the right. Future features (like tagging and possibly OpenID integration) will obviously use more pluggable apps. A cron script runs every hour, updating all of the repositories with the latest commits.</p>
+            <p>The design was built using <a href="http://sonspring.com">Nathan Smith's</a> <a href="http://960.gs">960.gs</a> CSS grid framework.</p>
+            <p>The site itself is deployed using <a href="http://www.modpython.org/">mod_python</a> running on <a href="http://httpd.apache.org/">Apache 2.2</a> (port <a href="http://www.encyclopediadramatica.com/index.php/IT'S_OVER_NINE_THOUSAND!">9000</a> for hilarity) behind an <a href="http://nginx.net/">nginx</a> proxy used to handle all the media. Everything is lovingly cared for on one of <a href="https://manage.slicehost.com/customers/new?referrer=451636206">Slicehost's 256slices</a>.</p>
+            <p>Oh, and we love <a href="http://www.apple.com/safari/">Safari</a>.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block sidebar %}
+<div id="sidebar" class="grid_5">
+    <h3>Poke Us.</h3>
+    <p>If you've come here from a project or developer page, you can use this form to contact us about any errors, changes or omissions you would like us to make. You could also say hi, we always love those. When submitting information please be <strong>as thorough as possible</strong>. We have the right to reject any information if we deem it to be invalid or spammish.</p>
+    {% comment %}
+    <form action="." method="post">
+        <ul>
+            <li class="clearfix"><label for="id_name" class="grid_2 alpha"><span>Name</span></label>{{ form.name }}</li>
+            <li class="clearfix"><label for="id_email" class="grid_2 alpha"><span>E-mail</span></label>{{ form.email }}</li>
+            <li class="body clearfix"><label for="id_body" class="grid_2 alpha"><span>Message</span></label>{{ form.body }}</li>
+            <li class="submit clearfix"><label for="id_submit" class="grid_2 alpha"><span>Submit</span></label><input id="id_submit" type="submit" value="I'm about to poke you. (or Send) &rarr;" /></li>
+        </ul>
+    </form>
+    {% endcomment %}
+    <p>Unfortunately, something's acting weird in regards to the contact form, so if you want to submit information or say hi, email <strong>bryan</strong> at <strong>this domain</strong>. Or, you can go to <a href="http://getsatisfaction.com/revyver/products/revyver_django_plugables">GetSatisfaction</a>!</p>
+    <p><a href="http://getsatisfaction.com/revyver/products/revyver_django_plugables"><img alt="Badge_get_help" src="http://getsatisfaction.com/images/badges/badge_get_help.png" /></a></p>
+</div>
+{% endblock %}

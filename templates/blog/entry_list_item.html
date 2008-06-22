@@ -1,0 +1,12 @@
+<div class="single-result {% if forloop.first %}first{% endif %} grid_9 alpha">
+    <div class="meta">
+        <a href="{{ entry.get_absolute_url }}"><h3>{{ entry.title }}</h3></a>
+        <abbr class="published" title="{{ entry.published|date:"Y-m-d\TH:i:sO" }}">Posted {{ entry.published|date:"F jS, Y" }} at {{ entry.published|time:"g:iA" }}</abbr>
+        {# <span class="commentcount">{% if entry.get_approved_comment_count %}{{ entry.get_approved_comment_count }} Comments{% else %}No Comments{% endif %}</span> #}
+    </div>
+    <div class="entry">
+        <div class="entry-summary">{{ entry.summary_processed }}</div>
+        {{ entry.body_processed|truncatewords_html:"100" }}
+        <p class="more"><a href="{{ entry.get_absolute_url }}">We're not done yet! Keep reading! &rarr;</a></p>
+    </div>
+</div>

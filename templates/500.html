@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} &bull; (500){% endblock %}
+{% block body-class %}error{% endblock %}
+{% block masthead %}
+<div class="grid_16">
+    <h2>You broke something. o_O;</h2>
+</div>
+{% endblock %}
+{% block content %}
+<div id="main" class="grid_8">
+    <h3>Looks like you killed the server. Great job!</h3>
+    <p>Great. You've just made my job that much harder. Or you can just think that I screwed up and save yourself the trouble. Well, either way, I'm either sleeping or on it. So rest assured that I'll have it back as soon as inhumanly possible!</p>
+    <p>I'd give you other stuff to do, but there's actually nothing you CAN do if you found this message.</p>
+</div>
+{% endblock %}

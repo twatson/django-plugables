@@ -1,0 +1,28 @@
+{% extends "base_blog.html" %}
+
+{% block title %}{{ block.super }} &bull; {{ entry.title }}{% endblock %}
+{% block content %}
+<div id="main" class="grid_10">
+    <div class="entry grid_9 alpha">
+        <div class="entry-body">
+            {{ entry.body_processed }}
+        </div>
+        {% if entry.footnotes %}
+        <div class="entry-footnotes">
+            {{ entry.footnotes_processed }}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+{% block sidebar %}
+<div id="sidebar" class="grid_5">
+    <div class="entry-meta">
+        <h3>{{ entry.title|typogrify }}</h3>
+        <abbr class="published" title="{{ entry.published|date:"Y-m-d\TH:i:sO" }}">Written on {{ entry.published|date:"F jS, Y" }} at {{ entry.published|time:"g:iA" }}</abbr>
+    </div>
+    <div class="entry-summary">
+        {{ entry.summary_processed }}
+    </div>
+</div>
+{% endblock %}

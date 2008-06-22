@@ -1,0 +1,9 @@
+{% autoescape off %}
+{{ obj.summary_processed }}
+<hr />
+{{ obj.body_processed }}
+{% if obj.footnotes %}
+<hr />
+{{ obj.footnotes_processed }}
+{% endif %}
+{% endautoescape %}

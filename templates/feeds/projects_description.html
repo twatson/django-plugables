@@ -1,0 +1,5 @@
+<p><strong>{{ obj.name }}</strong> &mdash; <em>{{ obj.tagline }}</em></p>
+{% if obj.description %}
+<hr />
+{{ obj.description|markdown }}
+{% endif %}

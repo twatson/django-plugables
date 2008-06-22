@@ -1,0 +1,1 @@
+[Django Pluggables] {{ name }} is poking you.

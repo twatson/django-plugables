@@ -1,0 +1,5 @@
+<ul>
+<li><strong>Revision:</strong> {{ obj.revision }}</li>
+<li><strong>Timestamp:</strong> {{ obj.committed|date:"r" }}</li>
+<li><strong>Message:</strong> {% if obj.message %}{{ obj.message }}{% else %}No commit message was supplied.{% endif %}</li>
+</ul>

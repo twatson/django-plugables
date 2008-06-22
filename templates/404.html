@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} &bull; (404){% endblock %}
+{% block body-class %}error{% endblock %}
+{% block masthead %}
+<div class="grid_16">
+    <h2>Going Somewhere?</h2>
+</div>
+{% endblock %}
+{% block content %}
+<div id="main" class="grid_8">
+    <h3>Looking for something that isn't here?</h3>
+    <p>Well, apparently you've either mistyped something. Or you've followed a link that no longer exists. <em>Or did it ever?</em> I guess we'll never know will we? Well, here's what you can do.</p>
+    <ul>
+        <li>Go back <a href="/">home</a>.</li>
+        <li>Or you can <a href="javascript:history.back();">go back</a> to where you came from.</li>
+    </ul>
+</div>
+{% endblock %}

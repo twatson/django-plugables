@@ -1,0 +1,62 @@
+{% autoescape off %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{% block title %}Django Pluggables{% endblock %}</title>
+    
+    <!-- All your... umm... CSS... bah.. x_x; -->
+    <link rel="stylesheet" href="{{ MEDIA_URL }}/stylesheets/basics.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="{{ MEDIA_URL }}/stylesheets/network.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="{{ MEDIA_URL }}/stylesheets/master.css" type="text/css" media="screen" charset="utf-8" />
+    
+    <!-- Javascript for great justice. -->
+    <script src="http://analytics.djangoplugables.com/?js" type="text/javascript"></script>
+    {% block javascript %}{% endblock %}
+    
+    <!-- Just like this. I'll get your feed to you, just like that. -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/djangoplugables" />
+    
+    <!-- Google seems to be watching me... -->
+    <meta name="verify-v1" content="ydOjJ/qEU6loEcPKlWM51nUhtjaM+mJC0k33Xq0WWiw=" />
+</head>
+
+<body class="{% block body-class %}{% endblock %}"{% block extra-body %}{% endblock %}>
+    <div id="network-nav">
+        <h1><a href="http://network.sidebarcreative.com/">Sidebar Network</a></h1>
+        <ul>
+            <li><a href="http://sidebarcreative.com/">Sidebar Creative</a></li>
+            <li><a href="http://mymilemarker.com/">My Mile Marker</a></li>
+            <li><a href="http://getsnitter.com/">Snitter</a></li>
+            <li><a href="http://overheard.it/">Overheard.it</a></li>
+            <li id="network-current"><a href="http://djangoplugables.com/">Django Plugables</a></li>
+        </ul>
+    </div><!-- end #network-nav -->
+    <div id="header" class="container_16 clearfix">
+        <h1 class="grid_10"><a href="/">Django Pluggables</a></h1>
+        <ul class="grid_6">
+            <li class="grid_2 alpha{% block projects-selected %}{% endblock %}"><a href="{% url project-list %}">Projects</a></li>
+            <li class="grid_2{% block developers-selected %}{% endblock %}"><a href="{% url developer-list %}">Developers</a></li>
+            <li class="grid_2 omega{% block repositories-selected %}{% endblock %}"><a href="{% url repository-list %}">EzayRepo</a></li>
+        </ul>
+    </div>
+    <div id="masthead" class="container_16 clearfix">
+    {% filter typogrify %}{% block masthead %}{% endblock %}{% endfilter %}
+    </div>    
+    <div id="content" class="container_16 clearfix">
+        <div id="content2" class="clearfix">
+        {% filter typogrify %}
+        {% block content %}{% endblock %}
+        {% block sidebar %}{% endblock %}
+        {% endfilter %}
+        </div>
+    </div>
+    <div id="footer" class="container_16 clearfix">
+        <p class="grid_16">Django Pluggables. From <a href="http://revyver.com">Revyver</a>, with love. &copy;{% now "Y" %} All rights reserved. <a href="http://djangoproject.com/">Django</a> is a registered trademark of the <a href="http://www2.ljworld.com/">Lawrence Journal-World</a>.</p>
+    </div>
+</body>
+
+{% endautoescape %}

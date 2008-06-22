@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} &bull; List of Projects{% endblock %}
+{% block body-class %}projects{% endblock %}
+{% block projects-selected %} selected{% endblock %}
+{% block masthead %}
+<div class="grid_16">
+    <h2>The Super Juicy List of Pluggable Applications</h2>
+</div>
+{% endblock %}
+{% block content %}
+<div id="main" class="grid_10">
+    <h3>Alphabetical. <small>(sorting methods arrive when <a href="http://code.djangoproject.com/wiki/QuerysetRefactorBranch">queryset-refactor</a> lands.)</small></h3>
+    <ul id="project-list" class="grid_9 alpha">
+    {% for project in project_list %}
+    <li>
+        <h4><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></h4>
+        <div>{{ project.tagline }}</div>
+    </li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+{% block sidebar %}
+<div id="sidebar" class="grid_5">
+    <h3>We list {{ project_list|length }} projects.</h3>
+    <p>We've done our research (for the most part) and found the apps that we thought were updated frequently, crucial to any Django project or just plain interesting. <strong>But we know we don't have them all!</strong> That's where you come in.</p>
+    <p>If your project or the project of somebody you know is missing from this list <strong>and</strong> you'd think it'd make a good fit here at Plugables, <a href="{% url contact_form %}">just let us know!</a></p>
+</div>
+{% endblock %}

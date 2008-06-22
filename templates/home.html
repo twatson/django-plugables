@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} &bull; Find reusable applications for your Django project, quickly and easily!{% endblock %}
+{% block body-class %}home{% endblock %}
+{% block masthead %}
+<div class="grid_9 prefix_3">
+    <h2>Plug(g)ables?</h2>
+    <p><strong>One of Django's great strengths lie in its abundant library of 3rd party "pluggable" applications.</strong> Need a blog? Grab a few pluggable apps to get you off your feet. The only problem is... they're so hard to find and keep track of. That's what we're here for. <strong>We do the work of making sure you're keeping your pluggables up-to-date.</strong></p>
+</div>
+<blockquote class="grid_4 omega">
+    <p>I’ve always thought that the sign of a healthy Open Source project is a vibrant ecosystem around that project. I’ve been thrilled to see that there are a bunch of cool third-party Django add-ons popping up. <cite>- Jacob Kaplan-Moss (<a href="http://www.jacobian.org/writing/2007/may/22/django-projects/">source</a>)</cite></p>
+</blockquote>
+{% endblock %}
+{% block content %}
+<div id="main" class="grid_9">
+    <h3>Recently Updated Projects.</h3>
+    {% get_latest_objects projects.codecommit 5 as commits %}
+    <ul class="grid_8 alpha">
+    {% for commit in commits %}
+        <li><a href="{{ commit.repository.project.get_absolute_url }}">{{ commit.repository.project.name }}</a> updated to {% if commit.url %}<a href="{{ commit.url }}" class="revision">{{ commit.revision }}</a>{% else %}<span class="revision">{{ commit.revision }}</span>{% endif %} {{ commit.committed|timesince }} ago at {{ commit.committed|time:"P"}}</li>
+    {% endfor %}
+        <li><a href="{% url commit-list %}">See More Recent Commits &rarr;</a></li>
+    </ul>
+    
+    <h3>Random Pluggables.</h3>
+    {% get_random_objects projects.project 5 as projects %}
+    <ul class="grid_8 alpha">
+    {% for project in projects %}
+        <li><a href="{{ project.get_absolute_url }}">{{ project.name }}</a> {{ project.tagline|truncatewords:6 }}</li>
+    {% endfor %}
+        <li><a href="{% url project-list %}">Check Out The Full List of Applications &rarr;</a></li>
+    </ul>
+    
+    <span class="clear">HOLY SHIT! IT'S EXTRA UNNECESSARY CLEARING MARKUP!</span>
+    
+    <h3>From the Plugable Blog.</h3>
+    {% get_latest_objects blog.entry 5 as entries %}
+    <ul class="grid_8 alpha">
+    {% for entry in entries %}
+        <li><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a> <abbr class="published" title="{{ entry.published|date:"Y-m-d\TH:i:sO" }}">written on <strong>{{ entry.published|date:"F jS, Y" }}</strong> at <strong>{{ entry.published|time:"g:iA" }}</strong></abbr></li>
+    {% endfor %}
+        <li style="display: none;"><a href="{% url project-list %}">Check Out The Rest of the Blog &rarr;</a></li>    
+    </ul>    
+</div>
+{% endblock %}
+{% block sidebar %}
+<div id="sidebar" class="grid_5">
+    <h3>The Why.</h3>
+    <p>By nature I'm a designer, not a programmer. So, when I decided to build my first application that wasn't a blog, running into pluggable applications like James Bennett's <code>django-registration</code> and the numerous forum projects out there helped me hit the ground running. Not only that, they helped teach me the fundamentals of good Python coding practices.</p>
+    <p>My only problem was, I hated having to go to Google Code to try and find them all. Wether it was to find that "diamond in the rough" or to see if an app had upgraded--it was like pulling teeth.</p>
+    <p>Django Plugables is my solution to that problem. Thanks to plugable apps like Jacob Kaplan-Moss' <code>jellyroll</code>, Pluggables will give you a central location to find all the apps and help you keep track of when your favorite ones update!</p>
+    <p>By any standard, this is a work-in-progress. But I hope to save you some time when it comes to building your next project.</p>
+    <a href="{% url contact_form %}" class="bubble">See what make this place tick &rarr;</a>
+</div>
+<div id="placeholder" class="grid_2">
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} &bull; The Obligatory About Page{% endblock %}
+{% block body-class %}about{% endblock %}
+{% block masthead %}
+<div class="grid_16">
+    <h2>The Obligatory About Page</h2>
+</div>
+{% endblock %}
+{% block content %}
+<div id="main" class="grid_8">
+    <div class="grid_7 alpha">
+        <h3>The Backstory.</h3>
+        <p>You know when you get those ideas that are fueled by the hatred towards and incompetence of something else? Well, that's how this place was born. Django Plugables is simply a place that aims to bring all of the pluggable applications under one roof. There are so many gems and little-known projects in the world of the pluggable app and this site strives to make them as well known as the essentials. <strong>We want to make it easy for you to create.</strong></p>
+        <p>This site was created, with love, by the duo at <a href="http://revyver.com">Revyver</a>, <a href="http://avalonstar.com">Bryan</a> and <a href="http://sayonarane.net">Jen</a>. Bryan did the 80% of the work that made 20% of the difference. Jen did the 20% of the work that made 80% of the difference. :)</p>
+        
+        <h3>Colophon.</h3>
+        <p>This <a href="http://djangoproject.com">Django joint</a> is essentially a heavily modified and lovingly styled version of the SCM (source control management) element of <a href="/developers/jacob-kaplan-moss/">Jacob Kaplan-Moss'</a> <a href="/projects/jellyroll/"><code>jellyroll</code></a>. <a href="http://www.jacobian.org/coding/">Here's his original implementation</a>, where he uses it to keep track of his commits and wiki edits within the Django project.</p> 
+        <p>We also use <a href="/developers/james-bennett/">James Bennett's</a> <a href="/projects/django-contact-form"><code>django-contact-form</code></a> for the lovely set of boxes you see to the right. Future features (like tagging and possibly OpenID integration) will obviously use more pluggable apps.</p>
+        <p>The site itself is deployed using <a href="http://www.modpython.org/">mod_python</a> running on <a href="http://httpd.apache.org/">Apache 2.2</a> (port <a href="http://www.encyclopediadramatica.com/index.php/IT'S_OVER_NINE_THOUSAND!">9000</a> for hilarity) behind an <a href="http://nginx.net/">nginx</a> proxy used to handle all the media. Everything is lovingly cared for on one of <a href="https://manage.slicehost.com/customers/new?referrer=451636206">Slicehost's 256slices</a>.
+    </div>
+</div>
+{% endblock %}
+{% block sidebar %}
+<div id="sidebar" class="grid_7">
+    <h3>You poked us.</h3>
+    <p><strong>Ow.</strong> Well, the androids should be off to send that to us right now. I hope. You know, since we spewed so much hatred on Google Code's search, maybe Gmail will have a fit too.</p>
+    <p>Either way, we'll reply soon... somehow.</p>
+    <p>~ Bryan &amp; Jen</p>
+</div>
+{% endblock %}

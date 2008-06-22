@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} &bull; Recent Commits{% endblock %}
+{% block body-class %}commits{% endblock %}
+{% block masthead %}
+<div class="grid_16">
+    <h2>Recent Commits</h2>
+</div>
+{% endblock %}
+{% block content %}
+<div id="main" class="grid_10">
+    {% regroup commit_list by repository.project.name as list %}
+    <h3>The Last 50 (or so) Commits.</h3>
+    <ul id="commit-list" class="grid_9">
+    {% for commit in list %}
+        <li class="clearfix">
+            <h4 class="grid_3 alpha">{{ commit.grouper }}</h4>
+            <ul class="grid_6 omega">
+            {% for item in commit.list %}
+                <li>{% if item.url %}<a href="{{ item.url }}" class="revision">{{ item.revision }}</a>{% else %}<span class="revision">{{ item.revision }}</span>{% endif %} committed <strong>{{ item.committed|timesince }} ago</strong> at {{ item.committed|time:"P"}}</li>
+            {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+    </ul>
+    <span class="clear">HOLY SHIT! IT'S EXTRA UNNECESSARY CLEARING MARKUP!</span>
+</div>
+{% endblock %}
+{% block sidebar %}
+<div id="sidebar" class="grid_5">
+    <h3>What you'll find.</h3>
+    <p>Listed here are the <em>50 most recent commits</em> by all the projects in our index. How to use it is quite simple. If the numbered box is blue, then click on it to go to see the changes that were made for that commit. If it's not, then code changes aren't made public and you'll have to do with `svn log` or another related function depending on your source control system.</p>
+    <p><a href="http://djangoplugables.com/feeds/commits/">We also have a feed of this page ready for your consumption.</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} &bull; List of Repositories{% endblock %}
+{% block javascript %}
+    <script type="text/javascript" src="{{ MEDIA_URL }}/javascripts/jquery-1.2.3.min.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}/javascripts/jquery-uitablefilter.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            t = $('table')
+            $('#phrase').keyup(function() {
+            	$.uiTableFilter( t, $('#phrase').val() );
+            });
+        });
+    </script>
+{% endblock %}
+{% block body-class %}repositories{% endblock %}
+{% block repositories-selected %} selected{% endblock %}
+{% block masthead %}
+<div class="grid_16">
+    <h2>The EzayRepo System</h2>
+</div>
+{% endblock %}
+{% block content %}
+<div id="main" class="grid_16">
+    <div id="thehell" class="grid_8 alpha">
+        <h3>What in the hell?</h3>
+        <p>"What in the hell is correct." Part of the reason I was wasting half of my life on Google Code was not only trying to find the pluggables I wanted, but also trying to remember the repository links for them. Granted, now I know the pattern. But there are going to be projects that aren't hosted on Google Code, and wouldn't you want a quicker way to get all of your pluggables in order?</p>
+        <p>Below is a simple list of all the apps we have and their respective repository link. It's all Subversion right now, but I'm sure you'll find some GIT links pop up sooner or later. Now all you have to do is <em>copy and paste</em>.</p>
+    </div>
+    <div id="thefilter" class="grid_8 omega">
+        <h3>Filter!</h3>
+        <p>If you're feeling lazy. You can use this <strong>uber gigantic</strong> text field below to filter the repositories. <strong>Although, typing "django-" won't help you all that much.</strong></p>
+        <label for="phrase"></label><input type="text" name="phrase" value="" id="phrase" />
+    </div>
+    <span class="clear">HOLY SHIT! IT'S EXTRA UNNECESSARY CLEARING MARKUP!</span>
+    <table>
+        <thead>
+            <tr><th>Project Name</th><th>Repository URL</th><th>Last Updated</th></tr>
+        </thead>
+        <tbody>
+    {% for repository in repository_list|dictsort:"project.name" %}
+            <tr><td><a href="{{ repository.project.get_absolute_url }}">{{ repository.project.name }}</a></td><td><code>svn checkout {{ repository.url }}</code></td><td>{{ repository.updated|date:"F j, Y" }}</td></tr>
+    {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
