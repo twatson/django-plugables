@@ -5,8 +5,8 @@ from django.views.generic.simple import direct_to_template, redirect_to
 from django.contrib.sitemaps import GenericSitemap
 from django.contrib import admin
 
-from blog.urls import entries
-from projects.urls import project_list, repository_list, developer_list
+from applications.blog.urls import entries
+from applications.projects.urls import project_list, repository_list, developer_list
 
 
 # Sitemaps
@@ -21,13 +21,13 @@ sitemaps = {
 urlpatterns = patterns('',
     
     # Nuts and Bolts
-    (r'^', include('projects.urls')),
+    (r'^', include('applications.projects.urls')),
     
     # Blog
-    (r'^blog/', include('blog.urls')),
+    (r'^blog/', include('applications.blog.urls')),
     
     # Contact Form / About
-    (r'^about/', include('contact_form.urls')),
+    (r'^about/', include('applications.contact_form.urls')),
     
     # Sitemaps
     (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
