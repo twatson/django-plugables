@@ -2,6 +2,7 @@
 
 # Setup the paths.
 import sys, os
+sys.path.append('/var/www/djangoplugables')
 sys.path.append('/var/www/djangoplugables/applications')
 sys.path.append('/var/www/djangoplugables/applications/core')
 sys.path.append('/var/www/djangoplugables/applications/projects')

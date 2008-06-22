@@ -10,4 +10,4 @@ class ItemAdmin(admin.ModelAdmin):
     search_fields = ('object_str', 'tags')
     
 
-admin.site.register(Item, ItemAdmin)
+#admin.site.register(Item, ItemAdmin)
