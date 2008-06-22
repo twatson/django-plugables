@@ -1,0 +1,59 @@
+"""
+This file containes all of the 'secret' settings that I would rather not have 
+sitting in the public repository. It is left blank by default as a template,
+so fill it out with your information if you wish to play around with it.
+"""
+
+# Database Settings
+DATABASE_HOST           = ''
+DATABASE_ENGINE         = ''
+DATABASE_NAME           = ''
+DATABASE_USER           = ''
+DATABASE_PASSWORD       = ''
+
+# Email
+ADMINS                  = (('', ''))
+MANAGERS                = ADMINS
+DEFAULT_FROM_EMAIL      = ''
+SERVER_EMAIL            = ''
+
+# More Email -_-;
+EMAIL_USE_TLS           = True
+EMAIL_HOST              = ''
+EMAIL_HOST_USER         = ''
+EMAIL_HOST_PASSWORD     = ''
+EMAIL_PORT              = 587
+
+# Secret Key
+SECRET_KEY              = ''
+INTERNAL_IPS            = ('',)
+
+# Application Settings
+INSTALLED_APPS = (
+
+    # Plugables
+    'applications.blog',
+    'applications.core',
+    'applications.projects',
+    
+    # Plugins
+    'applications.tagging',
+    'applications.template_utils',
+    'applications.typogrify',
+    
+    # Django Core
+    'django.contrib.contenttypes',
+    'django.contrib.flatpages',
+    'django.contrib.sites',
+    'django.contrib.auth',
+    'django.contrib.admin',
+    'django.contrib.sessions',
+    'django.contrib.sitemaps',
+    'django.contrib.markup',
+    
+)
+
+# Media Settings
+ADMIN_MEDIA_PREFIX = ''
+MEDIA_ROOT = ''
+MEDIA_URL = ''
