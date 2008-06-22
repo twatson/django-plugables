@@ -31,6 +31,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.http.SetRemoteAddrFromForwardedFor',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'applications.core.middleware.url.UrlMiddleware', # Custom Middleware
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
     'django.middleware.http.ConditionalGetMiddleware',
@@ -38,6 +39,7 @@ MIDDLEWARE_CLASSES = (
 )
 USE_ETAGS = True
 APPEND_SLASH = True
+REMOVE_WWW = True
 
 
 # Template Settings
