@@ -9,7 +9,7 @@ from django.conf import settings
 from django.template import Library
 from django.utils.safestring import mark_safe
 
-from template_utils.markup import formatter
+from applications.template_utils.markup import formatter
 
 
 def apply_markup(value, arg=None):
