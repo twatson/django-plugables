@@ -3,7 +3,7 @@ from django.contrib.syndication.feeds import Feed, FeedDoesNotExist
 from django.contrib.sites.models import Site
 from django.contrib.contenttypes.models import ContentType
 
-from models import Project, Repository, Changeset
+from models import Project, CodeRepository, CodeCommit
 
 
 # Get the current site.
@@ -21,7 +21,7 @@ class LatestCommits(Feed):
         return 'The latest commits for all the projects on %s' % site.name
     
     def items(self):
-        return Changeset.objects.all()[:50]
+        return CodeCommit.objects.all()[:50]
     
     def item_pubdate(self, item):
         return item.committed
@@ -61,7 +61,7 @@ class LatestProjects(Feed):
 # class LatestCommitsByProject(Feed):
 #     def get_object(self, bits):
 #         if len(bits) != 1:
-#             return Changeset.objects.all()[:50]
+#             return CodeCommit.objects.all()[:50]
 #         else:
 #             return Project.objects.get(beat__exact=bits[0])
 #     

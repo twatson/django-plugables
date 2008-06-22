@@ -19,7 +19,7 @@
         <strong>Grab the Repository</strong> &ndash; {% for repository in project.repository.all %}svn checkout {{ repository.url }}{% endfor %}
     </div>
     {% endif %}
-    <span class="clear">HOLY SHIT! IT'S EXTRA UNNECESSARY CLEARING MARKUP!</span>
+    <span class="clear">&nbsp;</span>
     <h3>Recent Commits</h3>
     {% for repository in project.repository.all %}
     {% ifequal repository.type "svn" %}
