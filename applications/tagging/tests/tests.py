@@ -2,13 +2,13 @@
 tests = r"""
 >>> import os
 >>> from django import newforms as forms
->>> from tagging.forms import TagField
->>> from tagging import settings
->>> from tagging.models import Tag, TaggedItem
->>> from tagging.tests.models import Article, Link, Perch, Parrot, FormTest
->>> from tagging.utils import calculate_cloud, get_tag_list, get_tag, parse_tag_input
->>> from tagging.utils import LINEAR
->>> from tagging.validators import isTagList, isTag
+>>> from forms import TagField
+>>> import settings
+>>> from models import Tag, TaggedItem
+>>> from tests.models import Article, Link, Perch, Parrot, FormTest
+>>> from utils import calculate_cloud, get_tag_list, get_tag, parse_tag_input
+>>> from utils import LINEAR
+>>> from validators import isTagList, isTag
 
 #############
 # Utilities #
@@ -412,7 +412,7 @@ u'test5'
 >>> spaces = Tag.objects.create(name='spa ces')
 >>> comma = Tag.objects.create(name='com,ma')
 
->>> from tagging.utils import edit_string_for_tags
+>>> from utils import edit_string_for_tags
 >>> edit_string_for_tags([plain])
 u'plain'
 >>> edit_string_for_tags([plain, spaces])

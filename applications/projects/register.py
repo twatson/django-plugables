@@ -1,2 +1,2 @@
 # Administration
-from projects import admin
+import admin

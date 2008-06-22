@@ -1,4 +1,4 @@
-import os
+import os.path
 
 # Getting Started
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -27,7 +27,6 @@ USE_I18N = True
 
 # Middleware
 MIDDLEWARE_CLASSES = (
-    'django.middleware.gzip.GZipMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.http.SetRemoteAddrFromForwardedFor',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -39,11 +38,20 @@ MIDDLEWARE_CLASSES = (
 USE_ETAGS = True
 APPEND_SLASH = True
 
+
 # Template Settings
+MARKUP_FILTER = ('markdown', {})
+TEMPLATE_DIRS = (
+    os.path.join(os.path.dirname(__file__), 'templates'),
+)
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
 )
 
 # Import Local Settings
-from plugables import *
+try:
+    from plugables import *
+except ImportError:
+    pass
+
