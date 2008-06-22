@@ -18,7 +18,7 @@ if DEBUG:
 else:
     CACHE_BACKEND = "memcached://127.0.0.1:11211/"
     CACHE_MIDDLEWARE_SECONDS = 60 * 60
-    CACHE_MIDDLEWARE_KEY_PREFIX = 'pluggables'
+    CACHE_MIDDLEWARE_KEY_PREFIX = 'plugables'
 
 # Site Settings
 SITE_ID = 1
@@ -46,4 +46,4 @@ TEMPLATE_LOADERS = (
 )
 
 # Import Local Settings
-from pluggables import *
+from plugables import *
