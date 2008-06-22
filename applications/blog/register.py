@@ -1,2 +1,2 @@
 # Administration
-from blog import admin
+import admin

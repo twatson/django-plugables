@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.generic import GenericForeignKey
 
 from managers import ItemManager
-from tagging.fields import TagField
+from applications.tagging.fields import TagField
 
 
 class Item(models.Model):

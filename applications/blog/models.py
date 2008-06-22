@@ -8,8 +8,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.sitemaps import ping_google
 
 from managers import *
-from template_utils.markup import formatter
-from typogrify.templatetags.typogrify import typogrify
+from applications.template_utils.markup import formatter
+from applications.typogrify.templatetags.typogrify import typogrify
 
 
 class Entry(models.Model):
@@ -46,7 +46,7 @@ class Entry(models.Model):
     footnotes_processed = models.TextField('Processed Footnotes', blank=True, editable=False)
     
     # Options
-    status              = models.PositiveSmallIntegerField(choices=STATUS_CHOICES, default=LIVE_STATUS, radio_admin=True, help_text='Select the status of this blog entry.')
+    status              = models.PositiveSmallIntegerField(choices=STATUS_CHOICES, default=LIVE_STATUS, help_text='Select the status of this blog entry.')
     enable_comments     = models.BooleanField('Comments?', default=True, help_text='Select \'True\' if you wish to enable visitors to comment on this entry.')
     
     # Mangers

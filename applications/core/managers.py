@@ -5,7 +5,7 @@ from django.db.models import signals
 from django.dispatch import dispatcher
 from django.contrib.contenttypes.models import ContentType
 
-from tagging.fields import TagField
+from applications.tagging.fields import TagField
 
 
 class ItemManager(models.Manager):

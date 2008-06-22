@@ -12,7 +12,7 @@ import feedparser
 from django import template
 from django.template.loader import render_to_string
 
-from template_utils.nodes import ContextUpdatingNode
+from applications.template_utils.nodes import ContextUpdatingNode
 
 
 class FeedIncludeNode(template.Node):

@@ -7,7 +7,7 @@ Template tags which can do retrieval of content from any model.
 from django import template
 from django.db.models import get_model
 
-from template_utils.nodes import ContextUpdatingNode, GenericContentNode
+from applications.template_utils.nodes import ContextUpdatingNode, GenericContentNode
 
 
 class RandomObjectsNode(GenericContentNode):
