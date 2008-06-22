@@ -1,5 +1,6 @@
 import os.path
 
+
 # Getting Started
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = BASE_DIR

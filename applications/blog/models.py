@@ -162,5 +162,5 @@ class Entry(models.Model):
     
 
 # Initialization
-from blog import register
+import register
 del register

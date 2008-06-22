@@ -50,5 +50,5 @@ class Item(models.Model):
     
 
 # Initilization
-from core import register
+import register
 del register

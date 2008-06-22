@@ -177,7 +177,7 @@ class Change(models.Model):
     
 
 # Initilization
-from projects import register
+import register
 del register
 
 # Register item objects to be "followed"
