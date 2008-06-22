@@ -5,6 +5,12 @@ applications/template_utils:
   revision: 
   squash: true
   remote: http://django-template-utils.googlecode.com/svn/trunk/template_utils
+applications/typogrify: 
+  local_branch: braid/svn/applications/typogrify
+  type: svn
+  revision: 
+  squash: true
+  remote: http://typogrify.googlecode.com/svn/trunk/typogrify
 applications/tagging: 
   local_branch: braid/svn/applications/tagging
   type: svn
