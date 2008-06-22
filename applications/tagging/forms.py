@@ -4,8 +4,8 @@ Tagging components for Django's ``newforms`` form library.
 from django import newforms as forms
 from django.utils.translation import ugettext as _
 
-from tagging import settings
-from tagging.utils import parse_tag_input
+import settings
+from utils import parse_tag_input
 
 class TagField(forms.CharField):
     """

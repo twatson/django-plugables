@@ -11,10 +11,10 @@ from django.db import connection, models
 from django.db.models.query import QuerySet
 from django.utils.translation import ugettext_lazy as _
 
-from tagging import settings
-from tagging.utils import calculate_cloud, get_tag_list, get_queryset_and_model, parse_tag_input
-from tagging.utils import LOGARITHMIC
-from tagging.validators import isTag
+import settings
+from utils import calculate_cloud, get_tag_list, get_queryset_and_model, parse_tag_input
+from utils import LOGARITHMIC
+from validators import isTag
 
 qn = connection.ops.quote_name
 
