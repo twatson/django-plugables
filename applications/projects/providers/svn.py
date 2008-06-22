@@ -11,7 +11,7 @@ from django.db import transaction
 from django.utils.encoding import smart_unicode
 
 from applications.core.models import Item
-from projects.models import Repository, Changeset
+from applications.projects.models import Repository, Changeset
 
 
 class RepositorySyncr:

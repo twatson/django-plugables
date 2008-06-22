@@ -13,7 +13,7 @@ import settings
 setup_environ(settings)
 
 # Now start the script.
-from projects.providers.svn import RepositorySyncr
+from applications.projects.providers.svn import RepositorySyncr
 
 rs = RepositorySyncr()
 rs.syncRepositories()

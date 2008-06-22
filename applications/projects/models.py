@@ -141,7 +141,7 @@ class CodeCommit(models.Model):
     
 
 # Initilization
-from projects import register
+from applications.projects import register
 del register
 
 # Register item objects to be "followed"
