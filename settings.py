@@ -29,7 +29,6 @@ USE_I18N = True
 # Middleware
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.http.SetRemoteAddrFromForwardedFor',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'applications.core.middleware.url.UrlMiddleware', # Custom Middleware
     'django.contrib.auth.middleware.AuthenticationMiddleware',
