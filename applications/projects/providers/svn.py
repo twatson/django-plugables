@@ -10,7 +10,7 @@ except ImportError:
 from django.db import transaction
 from django.utils.encoding import smart_unicode
 
-from core.models import Item
+from applications.core.models import Item
 from projects.models import Repository, Changeset
 
 

@@ -4,7 +4,7 @@ from django.db import models
 from django.db.models import permalink
 from django.utils import text
 
-from core.models import Item
+from applications.core.models import Item
 from tagging.fields import TagField
 
 
