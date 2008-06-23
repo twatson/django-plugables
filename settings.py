@@ -35,7 +35,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.doc.XViewMiddleware',
     'django.middleware.http.ConditionalGetMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    'applciations.core.middleware.analytics.GoogleAnalyticsMiddleware', # Custom Middleware
 )
 USE_ETAGS = True
 APPEND_SLASH = True
